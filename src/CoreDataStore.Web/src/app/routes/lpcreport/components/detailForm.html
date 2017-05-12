@@ -9,9 +9,10 @@
                 <img class="img-thumbnail img-responsive" src="{{ details.photoURL }}" />
               </td>
               <td>Designation Report:</td>
-              <td [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}">
-                <input type="text" class="form-control" [formControl]="name" />
-                <span *ngIf="!name.valid && name.touched && name.errors.required" class="help-block sub-little-text">Designation Report should not be empty!</span>
+              <td [ngClass]="{'has-error': (name.errors && !name.errors.required) || (name.errors && name.errors.required && name.touched), 'has-success': (name.valid && name.touched)}">
+                <input type="text" class="form-control" [formControl]="name" minlength="4" maxlength="200" />
+                <!-- <span *ngIf="!name.valid && name.touched && name.errors.required" class="help-block sub-little-text">Designation Report should not be empty!</span> -->
+                <span *ngIf="name.errors && name.errors.minlength || !name.valid && name.touched && name.errors.required" class="help-block sub-little-text">This field must be between 4 and 200 characters.</span>
               </td>
             </tr>
             <tr>
